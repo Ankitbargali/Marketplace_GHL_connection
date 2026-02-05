@@ -1,21 +1,27 @@
-const express = require("express");
 require("dotenv").config();
-const connect = require("./routes/getauthcode");
-const callback = require("./routes/gettoken");
+const express = require("express");
+const connect = require("./routes/getauthcode_route");
+const callback = require("./routes/gettoken_route");
+const contact = require("./routes/contact_route");
 const mongoose = require("mongoose");
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("server start");
+  res.send(`this is my page`);
 });
 
+//middleware
+app.use(express.json());
+
+//routes
 app.use("/", connect);
 app.use("/", callback);
+app.use("/", contact);
 
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
-    console.log("MongoDB connected succsffulyy ");
+    console.log("MongoDB connected succsffuly");
   })
   .catch((err) => {
     console.error("MongoDB not connected ", err.message);

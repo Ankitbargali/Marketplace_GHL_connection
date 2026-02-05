@@ -13,6 +13,7 @@ const tokenSchema = new mongoose.Schema(
     locationID: {
       type: String,
       required: true,
+      unique: true,
     },
     expires_at: {
       type: Number,
